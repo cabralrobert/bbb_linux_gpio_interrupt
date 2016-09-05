@@ -211,6 +211,7 @@ ARQ	Makefile	/^ARQ = 	gpioInit.o \\$/;"	m
 CC	Makefile	/^CC = arm-linux-gnueabihf-gcc$/;"	m
 INC	Makefile	/^INC = -I.\/inc$/;"	m
 MAX_BUF	inc/inc.h	30;"	d
+MIC_INPUT_DEV	inc/gpioInterrupt.h	12;"	d
 POLL_TIMEOUT	inc/inc.h	29;"	d
 SYSFS_GPIO_DIR	inc/inc.h	28;"	d
 _GPIODIRECTION_H	inc/gpioDirection.h	10;"	d
@@ -220,10 +221,9 @@ _GPIOINTERRUPT_H	inc/gpioInterrupt.h	10;"	d
 _GPIOVALUE_H	inc/gpioValue.h	10;"	d
 __ARCH_ARM_MACH_OMAP2_MUX335X_H	inc/mux33xx.h	17;"	d
 gpio_export	src/gpioInit.c	/^int gpio_export(unsigned int gpio)$/;"	f
-gpio_fd_close	src/gpioInterrupt.c	/^int gpio_fd_close(int fd)$/;"	f
-gpio_fd_open	src/gpioInterrupt.c	/^int gpio_fd_open(unsigned int gpio)$/;"	f
 gpio_get_value	src/gpioValue.c	/^int gpio_get_value(unsigned int gpio, unsigned int *value)$/;"	f
 gpio_set_dir	src/gpioDirection.c	/^int gpio_set_dir(unsigned int gpio, unsigned int out_flag)$/;"	f
-gpio_set_edge	src/gpioInterrupt.c	/^int gpio_set_edge(unsigned int gpio, char *edge)$/;"	f
 gpio_set_value	src/gpioValue.c	/^int gpio_set_value(unsigned int gpio, unsigned int value)$/;"	f
-main	src/main.c	/^int main(int argc, char **argv, char **envp)$/;"	f
+main	src/main.c	/^int main(){$/;"	f
+mic_button_callback	src/gpioInterrupt.c	/^static gboolean mic_button_callback(GIOChannel *source, GIOCondition condition, gpointer data)$/;"	f	file:
+mic_button_init	src/gpioInterrupt.c	/^void mic_button_init()$/;"	f

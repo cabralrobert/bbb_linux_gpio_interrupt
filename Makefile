@@ -13,10 +13,10 @@ app: $(ARQ)
 	$(CC) obj/main.o obj/gpioInit.o obj/gpioDirection.o obj/gpioValue.o obj/gpioInterrupt.o -o bin/app	 
 	
 main.o: src/main.c
-	$(CC) -o main.o -c $(INC) src/main.c -o obj/main.o
+	$(CC) -o main.o -c $(INC) -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include src/main.c -o obj/main.o -lglib-2.0
 
 gpioInterrupt.o: src/gpioInterrupt.c
-	$(CC) -o gpioInterrupt.o -c $(INC) src/gpioInterrupt.c -o obj/gpioInterrupt.o
+	$(CC) -o gpioInterrupt.o -c $(INC) -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include src/gpioInterrupt.c -o obj/gpioInterrupt.o -lglib-2.0
 
 gpioValue.o: src/gpioValue.c
 	$(CC) -o gpioValue.o -c $(INC) src/gpioValue.c -o obj/gpioValue.o

@@ -9,8 +9,9 @@
 #ifndef _GPIOINTERRUPT_H
 #define _GPIOINTERRUPT_H
 
-int gpio_set_edge(unsigned int gpio, char *edge);
-int gpio_fd_open(unsigned int gpio);
-int gpio_fd_close(int fd);
+#define MIC_INPUT_DEV  "/dev/input/event0"
+
+/*static gboolean mic_button_callback(GIOChannel *source, GIOCondition condition, gpointer data);
+void mic_button_init();*/
 
 #endif

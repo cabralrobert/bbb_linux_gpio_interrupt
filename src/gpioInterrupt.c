@@ -7,43 +7,43 @@
 *                                                      *
 ********************************************************/
 #include "inc.h"
+#include <glib.h>
 
-int gpio_set_edge(unsigned int gpio, char *edge)
+static gboolean mic_button_callback(GIOChannel *source, GIOCondition condition, gpointer data)
 {
-	int fd, len;
-	char buf[MAX_BUF];
+  struct input_event ev;
+  int bytes_read;
 
-	len = snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/edge", gpio);
- 
-	fd = open(buf, O_WRONLY);
-	if (fd < 0) {
-		perror("gpio/set-edge");
-		return fd;
-	}
- 
-	write(fd, edge, strlen(edge) + 1); 
-	close(fd);
-	return 0;
+  g_io_channel_read_chars(source, (gchar *)&ev, sizeof(ev), &bytes_read, NULL);
+
+  if (bytes_read > 0) {
+    if (bytes_read != sizeof(ev)) {
+      s_debug(1, "warning, only read %i bytes from mic input");
+      return TRUE;
+    }
+  } else {
+    return TRUE;
+  }
+
+  if (ev.type != EV_SYN && ev.value == 1) {
+    /* button pressed, do something ... */
+	printf("Botão pressionado");
+  }
+
+  return TRUE;
 }
 
-
-int gpio_fd_open(unsigned int gpio)
+void mic_button_init()
 {
-	int fd, len;
-	char buf[MAX_BUF];
+  GIOChannel * micbutton = g_io_channel_new_file(MIC_INPUT_DEV, "r", NULL);
 
-	len = snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", gpio);
- 
-	fd = open(buf, O_RDONLY | O_NONBLOCK );
-	if (fd < 0) {
-		perror("gpio/fd_open");
-	}
-	return fd;
-}
+  if (micbutton == NULL) {
+    s_debug(TRUE, "Error initializing mic button");
+    return;
+  }
 
+  g_io_channel_set_encoding(micbutton, NULL, NULL);
 
-int gpio_fd_close(int fd)
-{
-	return close(fd);
+  guint id = g_io_add_watch(micbutton, G_IO_IN, mic_button_callback, NULL);
 }
 
