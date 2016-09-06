@@ -8,6 +8,7 @@
 ********************************************************/
 #include "inc.h"
 #include <glib.h>
+#include <evtest.h>
 
 static gboolean mic_button_callback(GIOChannel *source, GIOCondition condition, gpointer data)
 {
