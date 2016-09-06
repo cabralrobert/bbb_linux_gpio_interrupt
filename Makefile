@@ -1,7 +1,8 @@
 all: folder app
 
 INC = -I./inc
-CC = arm-linux-gnueabihf-gcc
+#CC = arm-linux-gnueabihf-gcc
+CC = gcc
 
 ARQ = 	gpioInit.o \
 	gpioDirection.o \
